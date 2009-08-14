@@ -292,13 +292,13 @@ function fnExists(f) {
 
 function compareArray(aExpected, aActual) {
  
-  for each (var exp in aExpected) {
+  aExpected.forEach(function(exp) {
     for (var i in aActual) {
       var act = aActual[i]
       if (exp === act) break;
     }
     if (i === aActual.length-1) return false;
-  }
+  })
   return true;
 
  /* 
