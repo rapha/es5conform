@@ -31,15 +31,9 @@ path: "TestCases/chapter15/15.2/15.2.3/15.2.3.3/15.2.3.3-4-6.js",
 
 description: "Object.getOwnPropertyDescriptor returns data desc for functions on built-ins (Global.parseFloat)",
 
-<<<<<<< .mine
-test: function testcase(global) {
-  var desc = Object.getOwnPropertyDescriptor(global, "parseFloat");
-  if (desc.value === global.parseFloat &&
-=======
 test: function testcase() {
   var desc = Object.getOwnPropertyDescriptor(fnGlobalObject(), "parseFloat");
   if (desc.value === this.parseFloat &&
->>>>>>> .r59098
       desc.writable === true &&
       desc.enumerable === false &&
       desc.configurable === true) {

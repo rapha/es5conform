@@ -31,15 +31,9 @@ path: "TestCases/chapter15/15.2/15.2.3/15.2.3.3/15.2.3.3-4-13.js",
 
 description: "Object.getOwnPropertyDescriptor returns data desc for functions on built-ins (Global.unescape)",
 
-<<<<<<< .mine
-test: function testcase(global) {
-  var desc = Object.getOwnPropertyDescriptor(global, "unescape");
-  if (desc.value === global.unescape &&
-=======
 test: function testcase() {
   var desc = Object.getOwnPropertyDescriptor(fnGlobalObject(),  "unescape");
   if (desc.value === this.unescape &&
->>>>>>> .r59098
       desc.writable === true &&
       desc.enumerable === false &&
       desc.configurable === true) {

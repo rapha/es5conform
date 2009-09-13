@@ -31,15 +31,9 @@ path: "TestCases/chapter15/15.2/15.2.3/15.2.3.3/15.2.3.3-4-4.js",
 
 description: "Object.getOwnPropertyDescriptor returns data desc for functions on built-ins (Global.eval)",
 
-<<<<<<< .mine
-test: function testcase(global) {
-  var desc = Object.getOwnPropertyDescriptor(global, "eval");
-  if (desc.value === global.eval &&
-=======
 test: function testcase() {
   var desc = Object.getOwnPropertyDescriptor(fnGlobalObject(),  "eval");
   if (desc.value === this.eval &&
->>>>>>> .r59098
       desc.writable === true &&
       desc.enumerable === false &&
       desc.configurable === true) {

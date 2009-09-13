@@ -23,6 +23,7 @@ This test relies on 'this' being bound to the global object.
 This test must be run in a non-strict context.
 */
 
+
 ES5Harness.registerTest( {
 id: "15.2.3.3-4-10",
 
@@ -30,15 +31,9 @@ path: "TestCases/chapter15/15.2/15.2.3/15.2.3.3/15.2.3.3-4-10.js",
 
 description: "Object.getOwnPropertyDescriptor returns data desc for functions on built-ins (Global.decodeURIComponent)",
 
-<<<<<<< .mine
-test: function testcase(global) {
-  var desc = Object.getOwnPropertyDescriptor(global, "decodeURIComponent");
-  if (desc.value === global.decodeURIComponent &&
-=======
 test: function testcase() {
   var desc = Object.getOwnPropertyDescriptor(fnGlobalObject(),  "decodeURIComponent");
   if (desc.value === this.decodeURIComponent &&
->>>>>>> .r59098
       desc.writable === true &&
       desc.enumerable === false &&
       desc.configurable === true) {

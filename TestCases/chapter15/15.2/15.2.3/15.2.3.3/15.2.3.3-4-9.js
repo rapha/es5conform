@@ -26,15 +26,9 @@ path: "TestCases/chapter15/15.2/15.2.3/15.2.3.3/15.2.3.3-4-9.js",
 
 description: "Object.getOwnPropertyDescriptor returns data desc for functions on built-ins (Global.decodeURI)",
 
-<<<<<<< .mine
-test: function testcase(global) {
-  var desc = Object.getOwnPropertyDescriptor(global, "decodeURI");
-  if (desc.value === global.decodeURI &&
-=======
 test: function testcase() {
   var desc = Object.getOwnPropertyDescriptor(fnGlobalObject(), "decodeURI");
   if (desc.value === this.decodeURI &&
->>>>>>> .r59098
       desc.writable === true &&
       desc.enumerable === false &&
       desc.configurable === true) {

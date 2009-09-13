@@ -31,15 +31,9 @@ path: "TestCases/chapter15/15.2/15.2.3/15.2.3.3/15.2.3.3-4-7.js",
 
 description: "Object.getOwnPropertyDescriptor returns data desc for functions on built-ins (Global.isNaN)",
 
-<<<<<<< .mine
-test: function testcase(global) {
-  var desc = Object.getOwnPropertyDescriptor(global, "isNaN");
-  if (desc.value === global.isNaN &&
-=======
 test: function testcase() {
   var desc = Object.getOwnPropertyDescriptor(fnGlobalObject(),  "isNaN");
   if (desc.value === this.isNaN &&
->>>>>>> .r59098
       desc.writable === true &&
       desc.enumerable === false &&
       desc.configurable === true) {

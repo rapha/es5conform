@@ -26,13 +26,9 @@ path: "TestCases/chapter15/15.2/15.2.3/15.2.3.3/15.2.3.3-4-179.js",
 
 description: "Object.getOwnPropertyDescriptor returns data desc (all false) for properties on built-ins (Global.Infinity)",
 
-test: function testcase(global) {
+test: function testcase() {
   // in non-strict mode, 'this' is bound to the global object.
-<<<<<<< .mine
-  var desc = Object.getOwnPropertyDescriptor(global, "Infinity");
-=======
   var desc = Object.getOwnPropertyDescriptor(fnGlobalObject(),  "Infinity");
->>>>>>> .r59098
 
   if (desc.writable === false &&
       desc.enumerable === false &&

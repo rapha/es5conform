@@ -34,11 +34,7 @@ description: "String object indexing returns undefined if the numeric index ( 2^
 test: function testcase() {
   var s = new String("hello world");
 
-<<<<<<< .mine
-  if (s[Math.pow(2, 33)] === undefined) {
-=======
   if (s[Math.pow(2, 32)-1]===undefined) {
->>>>>>> .r59098
     return true;
   }
  }

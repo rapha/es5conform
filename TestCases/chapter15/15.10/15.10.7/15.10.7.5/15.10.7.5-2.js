@@ -24,11 +24,7 @@ id: "15.10.7.5-2",
 
 path: "TestCases/chapter15/15.10/15.10.7/15.10.7.5/15.10.7.5-2.js",
 
-<<<<<<< .mine
-description: "RegExp.prototype.lastIndex is a data property that is writable but not enumerable or configurable",
-=======
 description: "RegExp.prototype.lastIndex is a data property with specified attribute values",
->>>>>>> .r59098
 
 test: function testcase() {
   var d = Object.getOwnPropertyDescriptor(RegExp.prototype, 'lastIndex');
