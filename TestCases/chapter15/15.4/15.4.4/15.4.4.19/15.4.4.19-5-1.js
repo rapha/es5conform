@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -24,15 +24,20 @@ id: "15.4.4.19-5-1",
 
 path: "TestCases/chapter15/15.4/15.4.4/15.4.4.19/15.4.4.19-5-1.js",
 
-description: "Array.prototype.map returns an empty array if 'length' is 0 (empty array)",
+description: "Array.prototype.map - thisArg not passed",
 
 test: function testcase() {
-  function cb(){}
-  var a = [].map(cb);
-  if (Array.isArray(a) &&
-      a.length === 0) {
-    return true;
+  this._15_4_4_19_5_1 = true;
+  var _15_4_4_19_5_1 = false;
+  
+  function callbackfn(val, idx, obj)
+  {
+    return this._15_4_4_19_5_1;
   }
+  var srcArr = [1];
+  var resArr = srcArr.map(callbackfn);
+  if( resArr[0] === true)
+    return true;    
  },
 
 precondition: function prereq() {

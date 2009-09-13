@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -29,12 +29,16 @@ id: "15.5.5.5.2-3-8",
 
 path: "TestCases/chapter15/15.5/15.5.5/15.5.5.2/15.5.5.5.2-3-8.js",
 
-description: "String value indexing returns undefined if the numeric index ( > 2^32) is not an array index",
+description: "String value indexing returns undefined if the numeric index ( >= 2^32-1) is not an array index",
 
 test: function testcase() {
   var s = String("hello world");
 
+<<<<<<< .mine
   if (s[Math.pow(2, 33)] === undefined) {
+=======
+  if (s[Math.pow(2, 32)-1]===undefined) {
+>>>>>>> .r59098
     return true;
   }
  }

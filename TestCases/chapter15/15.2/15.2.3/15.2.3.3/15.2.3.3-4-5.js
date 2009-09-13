@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -31,9 +31,15 @@ path: "TestCases/chapter15/15.2/15.2.3/15.2.3.3/15.2.3.3-4-5.js",
 
 description: "Object.getOwnPropertyDescriptor returns data desc for functions on built-ins (Global.parseInt)",
 
+<<<<<<< .mine
 test: function testcase(global) {
   var desc = Object.getOwnPropertyDescriptor(global, "parseInt");
   if (desc.value === global.parseInt &&
+=======
+test: function testcase() {
+  var desc = Object.getOwnPropertyDescriptor(fnGlobalObject(),  "parseInt");
+  if (desc.value === this.parseInt &&
+>>>>>>> .r59098
       desc.writable === true &&
       desc.enumerable === false &&
       desc.configurable === true) {

@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -24,18 +24,22 @@ id: "13.1-2-2-s",
 
 path: "TestCases/chapter13/13.1/13.1-2-2-s.js",
 
-description: "eval - a Function having a formal parameter named 'eval' throws EvalError in strict mode",
+description: "eval - a function expression having a formal parameter named 'eval' throws EvalError in strict mode",
 
 test: function testcase() {
-  'use strict';
-
   try {
-    Function('eval', 'return 1;');
+    eval('"use strict"; (function foo(eval) {});');
   }
   catch (e) {
-    if (e instanceof EvalError) {
+    if (e instanceof SyntaxError) {
       return true;
     }
   }
+ },
+
+precondition: function prereq() {
+  return fnSupportsStrict();
  }
+
 });
+

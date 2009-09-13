@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"; AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -24,23 +24,20 @@ id: "12.10-0-1",
 
 path: "TestCases/chapter12/12.10/12.10-0-1.js",
 
-description: "with introduces scope - block-local vars not visible outside",
+description: "with does not change declaration scope - vars in with are visible outside",
 
 test: function testcase() {
   var o = {};
+  var f = function () {
+	/* capture foo binding before executing with */
+	return foo;
+      }
 
   with (o) {
-    var foo = 42;
+    var foo = "12.10-0-1";
   }
 
-  try {
-    foo;
-  }
-  catch (e) {
-    // actually, we need to have thrown a ReferenceError exception.
-    // However, in JScript we have thrown a TypeError exception.
-    // But that is a separate test.
-    return true;
-  }
+  return f()==="12.10-0-1"
+
  }
 });

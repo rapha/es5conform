@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -34,24 +34,16 @@ id: "12.14-3",
 
 path: "TestCases/chapter12/12.14/12.14-3.js",
 
-description: "catch introduces scope - block-local function expression not visible outside",
+description: "catch doesn't change declaration scope - var declaration are visible outside when name different from catch parameter",
 
 test: function testcase() {
   try {
     throw new Error();
   }
   catch (e) {
-    var foo = function () { return 42; }
+    var foo = "declaration in catch";
   }
   
-  try {
-    foo;
-  }
-  catch (e) {
-    // actually, we need to have thrown a ReferenceError exception.
-    // However, in JScript we have thrown a TypeError exception.
-    // But that is a separate test.
-    return true;
-  }
+  return foo === "declaration in catch";
  }
 });

@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -24,7 +24,7 @@ id: "12.10.1-7-s",
 
 path: "TestCases/chapter12/12.10/12.10.1/12.10.1-7-s.js",
 
-description: "with statement in strict mode throws SyntaxError (function expression, where the container function is strict)",
+description: "with statement in strict mode throws SyntaxError (function expression, where the container function is direct evaled from strict code)",
 
 test: function testcase() {
   'use strict';
@@ -41,5 +41,10 @@ test: function testcase() {
       return true;
     }
   }
+ },
+
+precondition: function prereq() {
+  return fnSupportsStrict();
  }
+
 });

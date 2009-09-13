@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -24,28 +24,19 @@ id: "15.4.4.18-4-7",
 
 path: "TestCases/chapter15/15.4/15.4.4/15.4.4.18/15.4.4.18-4-7.js",
 
-description: "Array.prototype.forEach returns undefined if 'length' is 0 (subclassed Array, length overridden with obj w/o valueOf (toString))",
+description: "Array.prototype.forEach throws TypeError if callbackfn is Object without Call internal method",
 
 test: function testcase() {
-  foo.prototype = new Array(1, 2, 3);
-  function foo() {}
-  var f = new foo();
-  
-  var o = { toString: function () { return '0';}};
-  f.length = o;
-  
-  // objects inherit the default valueOf method of the Object object;
-  // that simply returns the itself. Since the default valueOf() method
-  // does not return a primitive value, ES next tries to convert the object
-  // to a number by calling its toString() method and converting the
-  // resulting string to a number.
 
-  function cb(){}
-  var i = f.forEach(cb);
-  
-  if (i === undefined) {
-    return true;
+  var arr = new Array(10);
+  try {
+    arr.forEach(new Object());    
   }
+  catch(e) {
+    if(e instanceof TypeError)
+      return true;  
+  }
+
  },
 
 precondition: function prereq() {

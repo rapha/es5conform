@@ -12,6 +12,7 @@ sth.prototype.prepareToTest = function (filter) {
 }
 
 sth.prototype.println = print
+sth.prototype.flush = function() {}
 
 sth.prototype.testline = function(ut) {
     ut.printed = true;
@@ -21,3 +22,4 @@ sth.prototype.testline = function(ut) {
     this.println(ut.res.toUpperCase()+': '+ut.testObj.id+' '+(ut.description));
     }
 
+sth.prototype.startingTest = function(test) {}

@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -19,15 +19,16 @@
 /// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
 
 
+
 ES5Harness.registerTest( {
 id: "15.4.4.21-0-2",
 
 path: "TestCases/chapter15/15.4/15.4.4/15.4.4.21/15.4.4.21-0-2.js",
 
-description: "Array.prototype.reduce must exist as a function taking 2 parameters",
+description: "Array.prototype.reduce.length must be 1",
 
 test: function testcase() {
-  if (Array.prototype.reduce.length === 2) {
+  if (Array.prototype.reduce.length === 1) {
     return true;
   }
  },

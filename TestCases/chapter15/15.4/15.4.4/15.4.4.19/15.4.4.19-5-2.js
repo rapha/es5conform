@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -24,21 +24,22 @@ id: "15.4.4.19-5-2",
 
 path: "TestCases/chapter15/15.4/15.4.4/15.4.4.19/15.4.4.19-5-2.js",
 
-description: "Array.prototype.map returns an empty array if 'length' is 0 (subclassed Array, length overridden to null (type conversion))",
+description: "Array.prototype.map - thisArg is Object",
 
 test: function testcase() {
-  foo.prototype = new Array(1, 2, 3);
-  function foo() {}
-  var f = new foo();
-  f.length = null;
-  
-  function cb(){}
-  var a = f.map(cb);
-  
-  if (Array.isArray(a) &&
-      a.length === 0) {
-    return true;
+  var res = false;
+  var o = new Object();
+  o.res = true;
+  function callbackfn(val, idx, obj)
+  {
+    return this.res;
   }
+
+  var srcArr = [1];
+  var resArr = srcArr.map(callbackfn,o);
+  if( resArr[0] === true)
+    return true;    
+
  },
 
 precondition: function prereq() {

@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -27,9 +27,6 @@ path: "TestCases/chapter12/12.10/12.10.1/12.10.1-5-s.js",
 description: "with statement allowed in nested Function even if its container Function is strict)",
 
 test: function testcase() {
-  // 'eval' (or for that matter 'Function') inherits the strictness of its calling
-  // context (10.4.2). In this case, the calling context is non-strict (since the
-  // function testcase() itself is not in strict mode.
   Function("\
             \'use strict\';\
             var f1 = Function(\
@@ -38,5 +35,10 @@ test: function testcase() {
                             \")\
           ");
   return true;
+ },
+
+precondition: function prereq() {
+  return fnSupportsStrict();
  }
+
 });

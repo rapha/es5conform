@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -17,6 +17,7 @@
 /// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 /// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 /// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+
 
 
 ES5Harness.registerTest( {
@@ -27,14 +28,8 @@ path: "TestCases/chapter15/15.4/15.4.4/15.4.4.15/15.4.4.15-4-6.js",
 description: "Array.prototype.lastIndexOf returns -1 if 'length' is 0 (subclassed Array, length overridden with obj with valueOf)",
 
 test: function testcase() {
-  foo.prototype = new Array(1, 2, 3);
-  function foo() {}
-  var f = new foo();
   
-  var o = { valueOf: function () { return 0;}};
-  f.length = o;
-  
-  var i = f.lastIndexOf(1);
+ var i = Array.prototype.lastIndexOf.call({length: { valueOf: function () { return 0;}}}, 1);
   
   if (i === -1) {
     return true;

@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -31,21 +31,21 @@ test: function testcase() {
   var res2 = false;
   var res3 = false;
 
-  var x = 'local';
+  var x_12_14_13 = 'local';
 
   function foo() {
-    this.x = 'instance';
+    this.x_12_14_13  = 'instance';
   }
 
   try {
     throw foo;
   }
   catch (e) {
-    res1 = (x === 'local');
+    res1 = (x_12_14_13  === 'local');
     e();
-    res2 = (x === 'instance');
+    res2 = (x_12_14_13  === 'local');
   }
-  res3 = (x === 'local');
+  res3 = (x_12_14_13  === 'local');
   
   if (res1 === true &&
       res2 === true &&

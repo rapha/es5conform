@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -18,15 +18,6 @@
 /// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 /// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
 
-/*
-local vars must not be visible outside with block
-local functions must not be visible outside with block
-local function expresssions should not be visible outside with block
-local vars must shadow outer vars
-local functions must shadow outer functions
-local function expresssions must shadow outer function expressions
-eval should use the appended object to the scope chain
-*/
 
 
 ES5Harness.registerTest( {
@@ -34,24 +25,17 @@ id: "12.14-1",
 
 path: "TestCases/chapter12/12.14/12.14-1.js",
 
-description: "catch introduces scope - block-local vars not visible outside",
+description: "catch doesn't change declaration scope - var initializer in catch with same name as catch parameter changes parameter",
 
 test: function testcase() {
+  foo = "prior to throw";
   try {
     throw new Error();
   }
-  catch (e) {
-    var foo = 42;
+  catch (foo) {
+    var foo = "initializer in catch";
   }
-
-  try {
-    foo;
-  }
-  catch (e) {
-    // actually, we need to have thrown a ReferenceError exception.
-    // However, in JScript we have thrown a TypeError exception.
-    // But that is a separate test.
-    return true;
-  }
+ return foo === "prior to throw";
+  
  }
 });

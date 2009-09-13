@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -101,7 +101,7 @@ sth.prototype.run = function () {
         if (cachedGlobal[prop] !== globalState[prop]) cachedGlobal[prop] = globalState[prop];
     }
   for (var i = 0; i < t.length; i++) {
-    ut = t[i];
+    this.startingTest(ut = t[i]);
 
     // if the test specifies a prereq, run that.
     pre = ut.pre;
@@ -124,7 +124,7 @@ sth.prototype.run = function () {
     // if the prereq is met, run the testcase now.
     if (pres === true) {
       try {
-        res = ut.theTestcase.call(ut.testObj, this.global);
+        res = ut.theTestcase.call(ut.testObj);
         restoreGlobals();
         if (res === true) {
           ut.res = 'pass';
@@ -136,7 +136,7 @@ sth.prototype.run = function () {
       }
       catch (e) {
         restoreGlobals();
-        ut.res = 'failed with exception: ' + (e.description ? e.description : e);
+        ut.res = 'failed with exception: ' + e.description;
       }
     }
 
@@ -154,11 +154,10 @@ sth.prototype.matchTestPath = function (filePath) {
    return null;
    }
    
-sth.prototype.hmtlEscape = function hmtlEscape(str) {
+sth.prototype.htmlEscape = function htmlEscape(str) {
     str = str.replace(/</g,'&lt;');
     return str.replace(/>/g,'&gt;');
     }
-
 
  
 sth.prototype.report = function sth_report() {
@@ -185,7 +184,7 @@ sth.prototype.report = function sth_report() {
     ut = this.matchTestPath(utPath);
     if (ut) {
        ut.path=utPath;
-       this.testline(ut, this);
+       this.testline(ut);
        }
     else {
        var idFromFilePath = utPath.slice(utPath.lastIndexOf('/')+1,-3);
@@ -208,17 +207,10 @@ sth.prototype.report = function sth_report() {
       this.testline(ut, this);
       }
 
-  if (this.resultsDiv)
-    this.resultsDiv.innerHTMl = this.innerHTML
-}
-
-sth.prototype.println = function (s) {
-  this.innerHTML += s;
-  this.innerHTML += "<BR/>";
+  this.flush();
 }
 
 sth.prototype.prepareToTest = function (s) {
-  requestedTests;
   for (var i = 0; i < aryTestCasePaths.length; i++) {
     if (aryTestCasePaths[i])requestedTests++;
   }
@@ -233,7 +225,6 @@ function sth(globalObj) {
   this.testsById        = {};
   this.unidentifedTests = [];
   this.innerHTML        = "";
-  this.resultsDiv       = null;
 }
 
 function sth_test(to,  path) {
@@ -289,37 +280,21 @@ function fnExists(f) {
   }
 }
 
+var supportsStrict = undefined;
+function fnSupportsStrict() {
+   "use strict";
+   if (supportsStrict!==undefined) return supportsStrict;
+   try {eval('with ({}) {}'); supportsStrict=false;} catch (e) {supportsStrict=true;};
+   return supportsStrict;
+  }
+
+function fnGlobalObject() {
+  return (function () {return this}).call(null);
+  }
 
 function compareArray(aExpected, aActual) {
- 
-  aExpected.forEach(function(exp) {
-    for (var i in aActual) {
-      var act = aActual[i]
-      if (exp === act) break;
-    }
-    if (i === aActual.length-1) return false;
-  })
-  return true;
-
- /* 
-  var err = "expected "+aExpected.toSource()+" but was "+aActual.toSource();
-
-  if (aActual.length != aExpected.length) {
-    throw err;
-    return false;
-  }
-
-  aExpected.sort();
-  aActual.sort();
-
-  var s;
-  for (var i = 0; i < aExpected.length; i++) {
-    if (aActual[i] != aExpected[i]) {
-      throw err;
+  for (var exp in aExpected)
+    if (aActual.indexOf(exp) === -1)
       return false;
-    }
-  }
-  
   return true;
-*/
 }

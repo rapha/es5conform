@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -32,17 +32,13 @@ description: "delete operator returns true for property (stringify) defined on b
 
 test: function testcase() {
   try {
-      var desc = Object.getOwnPropertyDescriptor(JSON, 'stringify');
+      var o = JSON.stringify;
       var d = delete JSON.stringify;
       if (d === true && JSON.stringify === undefined) {
         return true;
       }
   } finally {
-    Object.defineProperty(JSON, 'stringify', desc);
+    JSON.stringify = o;
   }
- },
-
-precondition: function prereq() {
-  return (fnExists(JSON.stringify), fnExists(Object.getOwnPropertyDescriptor) && fnExists(Object.defineProperty));
  }
 });

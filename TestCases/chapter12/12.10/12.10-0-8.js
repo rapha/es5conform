@@ -9,7 +9,7 @@
 ///    * Neither the name of Microsoft nor the names of its contributors may be used to
 ///      endorse or promote products derived from this software without specific prior written permission.
 /// 
-/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
 /// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 /// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
 /// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -24,17 +24,15 @@ id: "12.10-0-8",
 
 path: "TestCases/chapter12/12.10/12.10-0-8.js",
 
-description: "with introduces scope - scope removed when exiting with statement (properties)",
+description: "with introduces scope - var initializer sets like named property",
 
 test: function testcase() {
   var o = {foo: 42};
 
   with (o) {
-    var foo = 1;
+    var foo = "set in with";
   }
 
-  if (o.foo === 42) {
-    return true;
-  }
+  return o.foo === "set in with";
  }
 });
