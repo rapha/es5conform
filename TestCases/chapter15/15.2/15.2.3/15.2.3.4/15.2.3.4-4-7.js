@@ -28,8 +28,8 @@ description: "Object.getOwnPropertyNames returns array of property names (String
 
 test: function testcase() {
   var result = Object.getOwnPropertyNames(String.prototype);
-  var expResult = ["constructor", "charAt", "charCodeAt", "concat", "indexOf", "lastIndexOf", "match", "replace", "search", "slice", "split", "substring", "substr", "toLowerCase", "toString", "toUpperCase", "valueOf", "toLocaleLowerCase", "toLocaleUpperCase", "localeCompare", "trim", "toJSON"];
-  if (compareArray(expResult, result)) {
+  var expResult = ["constructor", "charAt", "charCodeAt", "concat", "indexOf", "lastIndexOf", "match", "replace", "search", "slice", "split", "substring", "substr", "toLowerCase", "toString", "toUpperCase", "valueOf", "toLocaleLowerCase", "toLocaleUpperCase", "localeCompare", "trim"];
+  if (isSubsetOf(expResult, result)) {
     return true;
   }
  },

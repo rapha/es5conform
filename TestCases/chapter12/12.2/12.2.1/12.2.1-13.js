@@ -34,9 +34,12 @@ test: function testcase() {
 
 precondition: function () {
    //indirect eval must be globally scoped
-   var localVar = 12345;
+   var localVar = "12.2.1-13";
    var indirectEval = eval;
-   return indirectEval("localVar;")!==12345;
+   try {
+	if (indirectEval("localVar;")==="12.2.1-13" ) return false;
+   } catch (e) {};
+   return fnSupportsStrict();
 }
 
 

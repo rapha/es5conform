@@ -28,8 +28,8 @@ description: "Object.getOwnPropertyNames returns array of property names (Boolea
 
 test: function testcase() {
   var result = Object.getOwnPropertyNames(Boolean.prototype);
-  var expResult = ["constructor", "toString", "valueOf", "toJSON"];
-  if (compareArray(expResult, result)) {
+  var expResult = ["constructor", "toString", "valueOf"];
+  if (isSubsetOf(expResult, result)) {
     return true;
   }
  },

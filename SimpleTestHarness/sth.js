@@ -112,12 +112,13 @@ sth.prototype.run = function () {
         restoreGlobals();
         if (pres !== true) {
           ut.res = 'Precondition failed';
+          this.totalPreconditionFailed++;
         }
       }
       catch (e) {
         restoreGlobals();
         pres = false;
-        ut.res = 'Precondition failed with exception: ' + e.description;
+        ut.res = 'Precondition failed with exception: ' + e.message;
       }
     }
     
@@ -126,7 +127,7 @@ sth.prototype.run = function () {
       try {
         res = ut.theTestcase.call(ut.testObj);
         restoreGlobals();
-        if (res === true) {
+        if (res) {
           ut.res = 'pass';
           this.totalTestsPassed++;
         }
@@ -136,7 +137,7 @@ sth.prototype.run = function () {
       }
       catch (e) {
         restoreGlobals();
-        ut.res = 'failed with exception: ' + e.description;
+        ut.res = 'failed with exception: ' + e.message;
       }
     }
 
@@ -163,7 +164,8 @@ sth.prototype.htmlEscape = function htmlEscape(str) {
 sth.prototype.report = function sth_report() {
   this.println('Total tests: '+ requestedTests +
                ' Passed: ' + this.totalTestsPassed +
-               ' Failed: '+ (this.tests.length-this.totalTestsPassed) +
+               ' Failed: '+ (this.tests.length-this.totalTestsPassed-this.totalPreconditionFailed) +
+               ' Skipped (Precondition): '+ this.totalPreconditionFailed +
                ' Could not load: ' + (requestedTests - this.tests.length));
    this.println('');
 
@@ -219,6 +221,7 @@ sth.prototype.prepareToTest = function (s) {
 function sth(globalObj) {
   this.global           = globalObj;
   this.totalTestsRun    = 0;
+  this.totalPreconditionFailed = 0;
   this.totalTestsPassed = 0;
   this.tests            = [];
   this.testsByPath      = {};
@@ -274,17 +277,18 @@ function sth_loadtests(aryPaths, testHarnessPath) {
 // helpers that unittests can use (typically in
 // their prereq function).
 // ----------------------------------------------
-function fnExists(f) {
-  if (typeof(f) === "function") {
-    return true;
-  }
+function fnExists(/*arguments*/) {
+  for (var i=0; i<arguments.length; i++) {
+     if (typeof(arguments[i]) !== "function") return false;
+     }
+  return true;
 }
 
 var supportsStrict = undefined;
 function fnSupportsStrict() {
    "use strict";
    if (supportsStrict!==undefined) return supportsStrict;
-   try {eval('with ({}) {}'); supportsStrict=false;} catch (e) {supportsStrict=true;};
+   try {eval('with ({}) {}'); supportsStrict=false;} catch (e) {supportsStrict=true;};     
    return supportsStrict;
   }
 
@@ -293,8 +297,51 @@ function fnGlobalObject() {
   }
 
 function compareArray(aExpected, aActual) {
-  for (var exp in aExpected)
-    if (aActual.indexOf(exp) === -1)
+  if (aActual.length != aExpected.length) {
+    return false;
+  }
+
+  aExpected.sort();
+  aActual.sort();
+
+  var s;
+  for (var i = 0; i < aExpected.length; i++) {
+    if (aActual[i] !== aExpected[i]) {
       return false;
+    }
+  }
+  
+  return true;
+}
+
+function compareValues(v1, v2)
+{
+  if (v1 === 0 && v2 === 0)
+    return 1 / v1 === 1 / v2;
+  if (v1 !== v1 && v2 !== v2)
+    return true;
+  return v1 === v2;
+}
+
+function isSubsetOf(aSubset, aArray) {
+  if (aArray.length < aSubset.length) {
+    return false;
+  }
+
+  var sortedSubset = [].concat(aSubset).sort();
+  var sortedArray = [].concat(aArray).sort();
+
+  nextSubsetMember:
+  for (var i = 0, j = 0; i < sortedSubset.length; i++) {
+    var v = sortedSubset[i];
+    while (j < sortedArray.length) {
+      if (compareValues(v, sortedArray[j++])) {
+        continue nextSubsetMember;
+      }
+    }
+
+    return false;
+  }
+
   return true;
 }

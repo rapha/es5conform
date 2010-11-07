@@ -32,7 +32,7 @@ test: function testcase() {
   var f = {length: 0};
   Object.defineProperty(f,"0",{get: function () {accessed = true; return 1;}});
   
-  var i = f.lastIndexOf(1);
+  var i = Array.prototype.lastIndexOf.call(f,1);
   
   if (i === -1 && accessed==false) {
     return true;
